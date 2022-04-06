@@ -1,0 +1,1 @@
+<header style="background-color:slategray; color:darkseagreen; ">Voting Application</header>
