@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use App\Models\Canditate;
+use Illuminate\Support\Facades\DB;
 
 class Candidates extends Controller
 {
-    //Add candidate
+    //Add all candidates
     public function addCandidate(){
         return view('addCandidate');
     }
-    //Store image
+    //Store all candidates
     public function storeCandidate(Request $request){
         $request->validate([
             'name'                  => 'required',
@@ -35,10 +36,31 @@ class Candidates extends Controller
         return redirect()->route('home');
        
     }
-		//View image
+		//View all candidates
     public function viewCandidate(){
         $candidates = Candidate::all();
         return view('home', compact('candidates'));
 
+    }
+
+    public function voteCandidate(){
+        if (isset($_GET['candidate_id'])) {
+            DB::table('candidates')->where('id', $_GET['candidate_id'])->increment('votes', 1);
+            return redirect('voted');
+        }
+
+    }
+
+    public function getCandidate(){
+        if (isset($_GET['candidate_id'])) {
+            $candidates = DB::table('candidates')->where('id', $_GET['candidate_id'])->first();
+            return view('candidate', compact('candidates'));
+        }
+
+    }
+
+    public function leaderBoard(){
+        $candidates = DB::table('candidates')->orderBy('votes', 'desc')->get();
+        return view('leaderboard', compact('candidates'));
     }
 }

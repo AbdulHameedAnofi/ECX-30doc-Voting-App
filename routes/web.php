@@ -15,15 +15,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 // Route::view('homes', 'home');
-//For adding an image
-Route::get('addcandidate',[Candidates::class,'addCandidate'])->name('images.add');
+//For adding an candidate
+Route::get('addcandidate',[Candidates::class,'addCandidate']);
 
-//For storing an image
+//For storing an candidate
 Route::post('storeData',[Candidates::class,'storeCandidate']);
 
-//For showing an image
-Route::get('homes',[Candidates::class,'viewCandidate'])->name('home');
+//vote candidate
+Route::get('voteCandidate',[Candidates::class,'voteCandidate']);
+
+//For showing an candidate
+Route::get('/',[Candidates::class,'viewCandidate'])->name('home');
+
+//show one candidate
+Route::get('getCandidate',[Candidates::class,'getCandidate']);
+
+//show leader board
+Route::get('leaderboard',[Candidates::class,'leaderBoard']);
+
+Route::view('voted', 'voted');

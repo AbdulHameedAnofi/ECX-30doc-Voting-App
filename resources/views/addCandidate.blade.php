@@ -1,3 +1,4 @@
+@include('header')
 <h3>Add Candidate</h3>
 <div class="container">
   <form method="post" action="storeData" 
